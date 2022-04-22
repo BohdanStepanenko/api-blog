@@ -11,6 +11,8 @@ class Categories extends Model
     use HasFactory;
     use Sluggable;
 
+    public $timestamps = false;
+
     /**
      * Return the sluggable configuration array for this model.
      *
