@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\Categories;
 
 class Articles extends Model
 {
@@ -23,5 +24,10 @@ class Articles extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Categories::class, 'category_article');
     }
 }
