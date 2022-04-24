@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
-use App\Models\Articles;
+use App\Models\Article;
 
-class Categories extends Model
+class Category extends Model
 {
     use HasFactory;
     use Sluggable;
 
+    protected $guarded = [];
+    protected $table = 'categories';
     public $timestamps = false;
 
     /**
@@ -30,6 +32,6 @@ class Categories extends Model
 
     public function articles()
     {
-        return $this->belongsToMany(Articles::class, 'category_article');
+        return $this->belongsToMany(Article::class, 'category_article');
     }
 }

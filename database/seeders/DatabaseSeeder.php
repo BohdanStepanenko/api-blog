@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Articles;
-use App\Models\Categories;
+use App\Models\Article;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // Populate 5 users with 10 articles each other
         User::factory(5)->create()->each(function ($user) {
-            $user->articles()->saveMany(Articles::factory(10)->make());
+            $user->articles()->saveMany(Article::factory(10)->make());
         });
 
         // Populate categories
@@ -35,13 +35,13 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Categories::create($category);
+            Category::create($category);
         }
 
         // Populate pivot table categories to articles
-        $articles = Articles::all();
+        $articles = Article::all();
 
-        Categories::all()->each(function ($categories) use ($articles) {
+        Category::all()->each(function ($categories) use ($articles) {
             $categories->articles()->attach(
                 $articles->pluck('id')->toArray()
             );

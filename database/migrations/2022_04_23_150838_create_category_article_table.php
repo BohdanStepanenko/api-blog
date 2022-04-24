@@ -15,8 +15,8 @@ class CreateCategoryArticleTable extends Migration
     {
         Schema::create('category_article', function (Blueprint $table) {
             $table->id()->unique();
-            $table->foreignId('categories_id')->references('id')->on('categories');
-            $table->foreignId('articles_id')->references('id')->on('articles');
+            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('article_id')->references('id')->on('articles');
         });
     }
 
