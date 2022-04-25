@@ -15,7 +15,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $data = Article::all();
+        ArticleResource::withoutWrapping();
+        return ArticleResource::collection($data);
     }
 
     /**
@@ -45,8 +47,15 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
+        $article = Article::find($id);
+
+        if (is_null($article)) {
+            return response()->json('Article not found', 404);
+        }
+
+        ArticleResource::withoutWrapping();
         return new ArticleResource($article);
     }
 
