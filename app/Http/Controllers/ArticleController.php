@@ -23,9 +23,11 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $article = Article::create($request->all());
+
+        return response()->json($article, 201);
     }
 
     /**
@@ -36,13 +38,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = Article::create($request->all());
+
+        return response()->json($article, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
@@ -76,12 +80,13 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
     {
         $article->delete();
-        return response()->json('Article deleted successfully');
+
+        return response()->json('Article deleted successfully', 204);
     }
 }
