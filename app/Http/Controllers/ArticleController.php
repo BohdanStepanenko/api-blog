@@ -15,9 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $data = Article::all();
-        ArticleResource::withoutWrapping();
-        return ArticleResource::collection($data);
+        return Article::all();
     }
 
     /**
@@ -47,16 +45,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = Article::find($id);
-
-        if (is_null($article)) {
-            return response()->json('Article not found', 404);
-        }
-
-        ArticleResource::withoutWrapping();
-        return new ArticleResource($article);
+        return $article;
     }
 
     /**
@@ -88,8 +79,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return response()->json('Article deleted successfully');
     }
 }
