@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Category;
 
-class ArticleController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::all();
+        return Category::all();
     }
 
     /**
@@ -24,20 +24,20 @@ class ArticleController extends Controller
      */
     public function create(Request $request)
     {
-        $article = Article::create($request->all());
+        $category = Category::create($request->all());
 
-        return response()->json($article, 201);
+        return response()->json($category, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        return $article;
+        //
     }
 
     /**
@@ -46,25 +46,19 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        $article = Article::find($id);
-        $article->slug = null;
-        $article->update($request->all());
-
-        return response()->json($article, 204);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
-        $article->delete();
-
-        return response()->json('Article deleted successfully', 204);
+        //
     }
 }
