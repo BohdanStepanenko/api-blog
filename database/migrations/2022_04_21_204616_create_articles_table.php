@@ -20,9 +20,8 @@ class CreateArticlesTable extends Migration
             $table->string('slug', 400);
             $table->text('text');
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->dateTime('published_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'))->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('published_at');
+            $table->timestamps();
         });
     }
 
