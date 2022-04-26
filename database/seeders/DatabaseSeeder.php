@@ -15,11 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Populate 5 users with 10 articles each other
-        User::factory(5)->create()->each(function ($user) {
-            $user->articles()->saveMany(Article::factory(10)->make());
-        });
-
+        $this->call(UserTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(CategoryToArticleTableSeeder::class);
     }
