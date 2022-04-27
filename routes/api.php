@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
-
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+Route::controller(['middleware' => 'api'], function ($router) {
+    Route::post('register', [UserAuthController::class, 'register']);
+    Route::post('login', [UserAuthController::class, 'login']);
+    Route::get('user', [UserAuthController::class, 'user']);
+    Route::post('refresh', [UserAuthController::class, 'refresh']);
+    Route::post('logout', [UserAuthController::class, 'logout']);
 });
 
 Route::resource('articles', 'ArticleController');
