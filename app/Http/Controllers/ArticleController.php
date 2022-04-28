@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Http\Resources\ArticleResource;
 
 class ArticleController extends Controller
 {
@@ -14,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::all();
+        return ArticleResource::collection(Article::all());
     }
 
     /**
@@ -32,12 +33,13 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        return $article;
+        $article = Article::find($id);
+        return new ArticleResource($article);
     }
 
     /**
@@ -58,11 +60,12 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
+        $article = Article::find($id);
         $article->delete();
 
         return response()->json('Article deleted successfully', 204);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        return CategoryResource::collection(Category::all());
     }
 
     /**
@@ -35,9 +36,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        return $category;
+        $category = Category::find($id);
+        return new CategoryResource($category);
     }
 
     /**
@@ -61,8 +63,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = Category::find($id);
         $category->delete();
 
         return response()->json('Category deleted successfully', 204);
