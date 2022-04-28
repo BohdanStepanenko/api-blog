@@ -21,6 +21,5 @@ class UserIsAdmin
         }
 
         return response()->json(['error' => 'Permission only for administrator'], 403);
-        return response()->json(auth()->user());
     }
 }
