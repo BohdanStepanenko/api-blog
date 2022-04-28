@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Http\Resources\ArticleResource;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\ArticleCreateRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 
 class ArticleController extends Controller
 {
@@ -21,10 +22,10 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\ArticleRequest  $request
+     * @param  App\Http\Requests\ArticleCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleRequest $request)
+    public function store(ArticleCreateRequest $request)
     {
         $article = Article::create([
             'title' => $request->title,
@@ -50,11 +51,11 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\ArticleRequest  $request
+     * @param  App\Http\Requests\ArticleUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, $id)
+    public function update(ArticleUpdateRequest $request, $id)
     {
         $article = Article::find($id);
         $article->slug = null;

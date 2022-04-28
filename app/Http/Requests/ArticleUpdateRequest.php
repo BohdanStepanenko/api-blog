@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class ArticleRequest extends FormRequest
+class ArticleUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,8 +16,8 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:2|max:100',
-            'text' => 'required|min:3'
+            'title' => 'min:2|max:100',
+            'text' => 'min:3'
         ];
     }
 
@@ -28,13 +28,5 @@ class ArticleRequest extends FormRequest
             'message'   => 'Validation errors',
             'data'      => $validator->errors()
         ]));
-    }
-
-    public function messages()
-    {
-        return [
-            'title.required' => 'Title is required',
-            'text.required' => 'Text is required'
-        ];
     }
 }
