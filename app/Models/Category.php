@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -30,8 +31,8 @@ class Category extends Model
         ];
     }
 
-    public function articles()
+    public function articles(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class, 'category_article');
+        return $this->belongsToMany(Article::class);
     }
 }

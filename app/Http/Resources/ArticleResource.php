@@ -20,11 +20,8 @@ class ArticleResource extends JsonResource
             'attributes'    =>
             [
                 'title'         => $this->title,
-                'slug'          => $this->slug,
                 'text'          => $this->text,
-                'user_id'       => $this->user_id,
-                'created_at'    => $this->created_at,
-                'updated_at'    => $this->updated_at
+                'created_at'    => $this->created_at->format('Y-m-d')
             ],
         ];
     }

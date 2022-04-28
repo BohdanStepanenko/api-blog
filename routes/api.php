@@ -14,10 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('articles', 'ArticleController');
+Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
 
-Route::resource('categories', 'CategoryController');
+Route::middleware('auth:sanctum')->group(function() {
+    Route::apiResource('articles', App\Http\Controllers\ArticleController::class);
+    Route::apiResource('categories', App\Http\Controllers\CategoryController::class);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('logout', [App\Http\Controllers\AuthController::class, 'logout']);
+
+    Route::get('test', function() {
+        return 'test';
+    });
 });
