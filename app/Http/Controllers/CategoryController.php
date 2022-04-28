@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -23,9 +24,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(CategoryRequest $request)
     {
-        $category = Category::create($request->all());
+        $category = Category::create($request->title);
 
         return response()->json($category, 201);
     }
@@ -48,11 +49,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(CategoryRequest $request, $id)
     {
         $category = Category::find($id);
         $category->slug = null;
-        $category->update($request->all());
+        $category->update($request->title);
 
         return response()->json($category, 204);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Http\Resources\ArticleResource;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -23,9 +24,13 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(ArticleRequest $request)
     {
-        $article = Article::create($request->all());
+        $article = Article::create([
+            'title' => $request->title,
+            'text' => $request->text,
+            'user_id' => auth()->user()->id
+        ]);
 
         return response()->json($article, 201);
     }
@@ -48,11 +53,15 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(ArticleRequest $request, $id)
     {
         $article = Article::find($id);
         $article->slug = null;
-        $article->update($request->all());
+        $article->title = $request->title;
+        $article->text = $request->text;
+        $article->user_id = auth()->user()->id;
+
+        $article->save();
 
         return response()->json($article, 204);
     }
