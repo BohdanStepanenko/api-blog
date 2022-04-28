@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +28,10 @@ Route::group([
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-
-    // Route::post('login', 'AuthController@login');
-    // Route::post('user', 'AuthController@user');
-    // Route::post('logout', 'AuthController@logout');
-    // Route::post('refresh', 'AuthController@refresh');
 });
 
-Route::resource('articles', 'ArticleController');
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('categories', [CategoryController::class, 'index']);
+});
 
-Route::resource('categories', 'CategoryController');
+Route::resource('articles', ArticleController::class);
