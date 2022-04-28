@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\ArticleRequest;
@@ -20,11 +19,12 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      *
+     * @param  App\Http\Requests\ArticleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(ArticleRequest $request)
+    public function store(ArticleRequest $request)
     {
         $article = Article::create([
             'title' => $request->title,
@@ -48,12 +48,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified resource in storage.
      *
+     * @param  App\Http\Requests\ArticleRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ArticleRequest $request, $id)
+    public function update(ArticleRequest $request, $id)
     {
         $article = Article::find($id);
         $article->slug = null;
@@ -75,8 +76,18 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $article = Article::find($id);
-        $article->delete();
 
-        return response()->json('Article deleted successfully', 204);
+        // Policy for user to delete only own article
+        if (auth()->check()) {
+            if (auth()->user()->id === $article->user_id) {
+                $article->delete();
+
+                return response()->json('Article deleted successfully', 204);
+            }
+
+            return response()->json('You cannot delete someone else`s article', 403);
+        }
+
+        return response()->json('Unauthorized', 403);
     }
 }

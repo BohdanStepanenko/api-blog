@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\CategoryRequest;
@@ -20,11 +19,12 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      *
+     * @param  App\Http\Requests\CategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(CategoryRequest $request)
+    public function store(CategoryRequest $request)
     {
         $category = Category::create($request->title);
 
@@ -44,12 +44,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified resource in storage.
      *
+     * @param  App\Http\Requests\CategoryRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $category = Category::find($id);
         $category->slug = null;
