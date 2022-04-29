@@ -17,8 +17,7 @@ class ArticleUpdateRequest extends FormRequest
     {
         return [
             'title' => 'min:2|max:100',
-            'text' => 'min:3',
-            'user_id' => 'in:' . auth()->user()->id
+            'text' => 'min:3'
         ];
     }
 
@@ -29,12 +28,5 @@ class ArticleUpdateRequest extends FormRequest
             'message'   => 'Validation errors',
             'data'      => $validator->errors()
         ]));
-    }
-
-    public function messages()
-    {
-        return [
-            'user_id.in' => 'You cannot update someone else`s article'
-        ];
     }
 }

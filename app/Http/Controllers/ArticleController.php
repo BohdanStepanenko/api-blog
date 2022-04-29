@@ -10,6 +10,16 @@ use App\Http\Requests\ArticleUpdateRequest;
 class ArticleController extends Controller
 {
     /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -57,7 +67,6 @@ class ArticleController extends Controller
         $article->slug = null;
         $article->title = $request->title;
         $article->text = $request->text;
-        $article->user_id = auth()->user()->id;
 
         $article->save();
 
