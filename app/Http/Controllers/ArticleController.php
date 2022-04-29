@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\ArticleCreateRequest;
 use App\Http\Requests\ArticleUpdateRequest;
+use App\Http\Requests\ArticleDeleteRequest;
 
 class ArticleController extends Controller
 {
@@ -79,21 +80,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ArticleDeleteRequest $request, Article $article)
     {
-        $article = Article::find($id);
+        $article->delete();
 
-        // Policy for user to delete only own article
-        if (auth()->check()) {
-            if (auth()->user()->id === $article->user_id) {
-                $article->delete();
-
-                return response()->json('Article deleted successfully', 204);
-            }
-
-            return response()->json('You cannot delete someone else`s article', 403);
-        }
-
-        return response()->json('Unauthorized', 403);
+        return response()->noContent();
     }
 }
