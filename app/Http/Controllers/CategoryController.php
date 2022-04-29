@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = Category::create($request->title);
+        $category = Category::create($request->validated());
 
         return response()->json($category, 201);
     }
@@ -54,7 +54,9 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         $category->slug = null;
-        $category->update($request->title);
+        $category->title = $request->title;
+
+        $category->save();
 
         return response()->json($category, 204);
     }
