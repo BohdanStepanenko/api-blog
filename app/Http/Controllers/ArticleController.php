@@ -27,11 +27,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleCreateRequest $request)
     {
-        $article = Article::create([
-            'title' => $request->title,
-            'text' => $request->text,
-            'user_id' => auth()->user()->id
-        ]);
+        $article = Article::create($request->validated());
 
         return response()->json($article, 201);
     }
