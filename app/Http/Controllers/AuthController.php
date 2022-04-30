@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -36,7 +35,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'User registered successfully',
             'user' => $user
-        ], 201);
+        ],  Response::HTTP_OK);
     }
 
     /**
@@ -47,7 +46,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (!$token = auth()->attempt($request->validated())) {
-            return response()->json(['status' => 'failed', 'message' => 'Invalid email and password.', 'error' => 'Unauthorized'], 401);
+            return response(['error' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
         }
 
         return $this->respondWithToken($token);
@@ -72,7 +71,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response(['message' => 'Success'], Response::HTTP_OK);
     }
 
     /**
