@@ -29,4 +29,4 @@ Route::group([
 });
 
 Route::apiResource('categories', CategoryController::class)->middleware('admin');
-Route::apiResource('articles', ArticleController::class);
+Route::apiResource('articles', ArticleController::class)->middleware('auth:api', ['except' => ['index', 'show']]);
