@@ -5,72 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\CategoryRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return CategoryResource::collection(Category::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  App\Http\Requests\CategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CategoryRequest $request)
     {
         $category = Category::create($request->validated());
 
-        return response()->json($category, 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $category = Category::find($id);
         return new CategoryResource($category);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  App\Http\Requests\CategoryRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CategoryRequest $request, $id)
+    public function show(Category $category)
     {
-        $category = Category::find($id);
-        $category->slug = null;
-        $category->title = $request->title;
-
-        $category->save();
-
-        return response()->json($category, 204);
+        return new CategoryResource($category);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function update(CategoryRequest $request, Category $category)
+    {
+        $category->update($request->validated());
+
+        return new CategoryResource($category);
+    }
+
     public function destroy(Category $category)
     {
         $category->delete();
 
-        return response()->noContent();
+        return response()->json('Category deleted successfully', Response::HTTP_NO_CONTENT);
     }
 }
