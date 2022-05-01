@@ -17,15 +17,17 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $user = User::create(array_merge(
+        User::create(array_merge(
             $request->validated(),
             ['password' => Hash::make($request->password)]
         ));
 
-        return response()->json([
-            'message' => 'User registered successfully',
-            'user' => $user
-        ],  Response::HTTP_OK);
+        $token = auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        return $this->respondWithToken($token);
     }
 
     /**
