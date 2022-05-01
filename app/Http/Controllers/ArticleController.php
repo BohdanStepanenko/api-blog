@@ -7,7 +7,6 @@ use App\Http\Resources\ArticleResource;
 use App\Http\Requests\ArticleCreateRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Http\Requests\ArticleDeleteRequest;
-use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends Controller
 {

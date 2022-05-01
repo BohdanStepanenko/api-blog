@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\CategoryRequest;
-use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {

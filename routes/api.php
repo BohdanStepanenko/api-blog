@@ -14,6 +14,7 @@ Route::withoutMiddleware(['auth', 'api'])
 
 Route::middleware('auth:api')
     ->group(function () {
+        Route::get('user', [AuthController::class, 'user']);
         Route::get('logout', [AuthController::class, 'logout']);
         Route::apiResource('articles', ArticleController::class)->except(['index', 'show']);
         Route::apiResource('categories', CategoryController::class)->middleware('admin');
