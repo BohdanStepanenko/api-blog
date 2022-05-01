@@ -37,6 +37,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return response()->json('Category deleted successfully', Response::HTTP_NO_CONTENT);
+        return response()->noContent();
     }
 }

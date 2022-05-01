@@ -39,6 +39,6 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return response()->json('Category deleted successfully', Response::HTTP_NO_CONTENT);
+        return response()->noContent();
     }
 }
