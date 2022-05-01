@@ -12,6 +12,11 @@ class Article extends Model
     use HasFactory;
     use Sluggable;
 
+    protected $fillable = [
+        'title',
+        'text'
+    ];
+
     public function sluggable(): array
     {
         return [
