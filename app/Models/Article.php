@@ -16,6 +16,23 @@ class Article extends Model
     protected $table = 'articles';
 
     /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($article) {
+            if (auth()->check()) {
+                $article->user_id = auth()->user()->id;
+            }
+
+            return response()->json('Unauthorized', 403);
+        });
+    }
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
