@@ -10,8 +10,6 @@
 -   **Usage**
 -   **JWT**
 
-&nbsp;
-
 ---
 
 ## Installation
@@ -42,11 +40,9 @@ Please, check the official Laravel framework installation guide for server requi
 
     php artisan migrate:refresh --seed
 
-&nbsp;
+---
 
 ## Usage
-
----
 
 **Step 1**. Start the local development server
 
@@ -54,13 +50,11 @@ Please, check the official Laravel framework installation guide for server requi
 
 Now you have access the server at http://127.0.0.1:8000
 
-**Step 2**. You can use Postman requests from [this collection](https://github.com/BohdanStepanenko/api-blog/blob/main/api-blog.postman_collection.json)
-
-&nbsp;
-
-## JWT
+You can use requests from [this collection](https://github.com/BohdanStepanenko/api-blog/blob/main/api-blog.postman_collection.json) using **Postman, Thunder Client** or other Rest API Client
 
 ---
+
+## JWT
 
 The **JWT** authentication middleware handles the validation and authentication of the token. Please check the following sources to learn more about JWT.
 
